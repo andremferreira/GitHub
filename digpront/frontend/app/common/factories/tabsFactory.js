@@ -1,16 +1,16 @@
-angular.module('digitalProntuario').factory('tabs', [function () {
-
-    function show(owner, {
+angular.module('digPront').factory('tabs', [ function() {
+    
+       function show(owner, {
           tabList = false,
-        tabCreate = false,
-        tabUpdate = false,
-        tabDelete = false
+          tabCreate = false,
+          tabUpdate = false,
+          tabDelete = false
        }) {
-        owner.tabList = tabList
-        owner.tabCreate = tabCreate
-        owner.tabUpdate = tabUpdate
-        owner.tabDelete = tabDelete
-    }
-
-    return { show }
-}])
+          owner.tabList = tabList
+          owner.tabCreate = tabCreate
+          owner.tabUpdate = tabUpdate
+       }
+    
+       return { show }
+    }])
+    

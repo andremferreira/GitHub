@@ -1,4 +1,4 @@
-angular.module('digitalProntuario').factory('msgs', [
+angular.module('digPront').factory('msgs', [
     'toastr',
     MsgsFactory
   ])

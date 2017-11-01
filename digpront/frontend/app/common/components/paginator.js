@@ -1,4 +1,4 @@
-angular.module('digitalProntuario').component('paginator', {
+angular.module('digPront').component('paginator', {
     bindings: {
         url: '@',
         pages: '@',
