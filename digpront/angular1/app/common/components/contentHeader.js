@@ -9,6 +9,7 @@ angular.module('primeiraApp').component('contentHeader', {
       preInf: '@',
       posInf: '@',
       tabTitle:'@',
+      stlI: '@',
    },controller: [
     'pMaiuscula',
     function(pMaiuscula) {
@@ -17,10 +18,12 @@ angular.module('primeiraApp').component('contentHeader', {
   ],
    template: `
       <section class="content-header">
-        <div>
-        <img src="{{ $ctrl.imagem }}"><h1><i class="{{ $ctrl.icoimgsP }}"></i>{{ $ctrl.txtPosIco }}{{ $ctrl.name }}
+      <div>
+      <div class="row box box-solid box-header with-border col-md-12">
+          <h1><i class="{{ $ctrl.icoimgsP }}" style="{{ $ctrl.stlI}} "></i>{{ $ctrl.txtPosIco }}{{ $ctrl.name }}
           <small><i class="{{ $ctrl.icoimgs}}"></i>{{ $ctrl.preInf }}{{ $ctrl.pMaiusculaClasses }}{{ $ctrl.posInf }}</small></h1>
         </div>
+      </div>
       </section>
    `
 });

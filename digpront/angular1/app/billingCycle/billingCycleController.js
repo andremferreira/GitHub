@@ -5,14 +5,16 @@ angular.module('primeiraApp').controller('BillingCycleCtrl', [
   'msgs',
   'tabs',
   'consts',
+  'auth',
   BillingCycleController
 ])
 
-function BillingCycleController($scope, $http, $location, msgs, tabs, consts) {
+function BillingCycleController($scope, $http, $location, msgs, tabs, consts, auth) {
 
   $scope.getBillingCycles = function() {
     const page = parseInt($location.search().page) || 1
-    const url = `${consts.apiUrl}/billingCycles?skip=${(page - 1) * 10}&limit=10`
+    const url = `${consts.apiUrl}/billingCycles/?medico=${auth.getUser()._id}&skip=${(page - 1) * 10}&limit=10`
+    console.log(url)
     $http.get(url).then(function(resp) {
       $scope.billingCycles = resp.data
       $scope.billingCycle = {}
@@ -26,6 +28,8 @@ function BillingCycleController($scope, $http, $location, msgs, tabs, consts) {
 
   $scope.createBillingCycle = function() {
     const url = `${consts.apiUrl}/billingCycles`;
+    $scope.billingCycle.medico = auth.getUser()._id
+
     $http.post(url, $scope.billingCycle).then(function(response) {
       $scope.billingCycle = {}
       initCreditsAndDebts()
@@ -45,6 +49,7 @@ function BillingCycleController($scope, $http, $location, msgs, tabs, consts) {
   $scope.updateBillingCycle = function() {
     const url = `${consts.apiUrl}/billingCycles/${$scope.billingCycle._id}`
     $http.put(url, $scope.billingCycle).then(function(response) {
+  
       $scope.billingCycle = {}
       initCreditsAndDebts()
       $scope.getBillingCycles()

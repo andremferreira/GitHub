@@ -26,5 +26,6 @@ module.exports = function (server) {
     billingCycleService.register(protectedApi, '/billingCycles')
 
     const billingSummaryService = require('../api/billingSummary/billingSummaryService')
-    protectedApi.route('/billingSummary').get(billingSummaryService.getSummary)
+    protectedApi.param('medico', billingSummaryService.getSummary)
+    protectedApi.route('/billingSummary/:medico').get(billingSummaryService.getSummary)
 }
