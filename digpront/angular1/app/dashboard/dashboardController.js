@@ -17,9 +17,8 @@ function DashboardController($http, $scope, $location, consts, tabs, auth) {
   vm.getSummary = function () {
     const url = `${consts.apiUrl}/billingSummary/${usr}`;
     $http.get(url).then(function (response) {
-      console.log(response.data);
+      // console.log(response.data);
       const { credit = 0, debt = 0 } = response.data
-      //vm.medico_id = usr
       vm.credit = credit
       vm.debt = debt
       vm.total = credit - debt

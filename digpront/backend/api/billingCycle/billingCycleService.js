@@ -17,6 +17,20 @@ function sendErrorsOrNext(req, res, next) {
   }
 }
 
+function getListByMedic(req, res, next, medico) {
+  console.log(medico)
+    BillingCycle.find( 
+      { medico : { $eq: medico }}
+      , function(error, result) {
+      if(error) {
+        res.status(500).json({errors: [error]})
+      } else {
+        res.json({value})
+      }
+    })
+}
+
+
 function parseErrors(nodeRestfulErrors) {
   const errors = []
   _.forIn(nodeRestfulErrors, error => errors.push(error.message))
@@ -33,4 +47,4 @@ BillingCycle.route('count', function(req, res, next) {
   })
 })
 
-module.exports = BillingCycle
+module.exports = {BillingCycle, getListByMedic}
