@@ -23,12 +23,14 @@ module.exports = function (server) {
 	protectedApi.use(auth)
 
     const billingCycleService = require('../api/billingCycle/billingCycleService')
-    protectedApi.param('medico', billingCycleService.getListByMedic)
-    // billingCycleService.register(protectedApi, '/billingCycles')
-    protectedApi.route('/billingCycles/:medico').get(billingCycleService.getListByMedic)
-
+    billingCycleService.register(protectedApi, '/billingCycles')
+    //protectedApi.route('/billingCycle/:medico').get(billingCycleService.getListByMedic)
     const billingSummaryService = require('../api/billingSummary/billingSummaryService')
-    protectedApi.param('medico', billingSummaryService.getSummary)
+
+    //protectedApi.param('medico', billingSummaryService.getSummary)
     protectedApi.route('/billingSummary/:medico').get(billingSummaryService.getSummary)
+
+
+
 
 }

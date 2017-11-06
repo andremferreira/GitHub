@@ -13,7 +13,8 @@ function BillingCycleController($scope, $http, $location, msgs, tabs, consts, au
 
   $scope.getBillingCycles = function() {
     const page = parseInt($location.search().page) || 1
-    const url = `${consts.apiUrl}/billingCycles/?medico=${auth.getUser()._id}&skip=${(page - 1) * 10}&limit=10`
+    //const url = `${consts.apiUrl}/billingCycles/?medico=${auth.getUser()._id}&skip=${(page - 1) * 10}&limit=10`
+    const url = `${consts.apiUrl}/billingCycles?medico=${auth.getUser()._id}&skip=${(page - 1) * 10}&limit=10`
     console.log(url)
     $http.get(url).then(function(resp) {
       $scope.billingCycles = resp.data

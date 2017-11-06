@@ -17,11 +17,9 @@ function sendErrorsOrNext(req, res, next) {
   }
 }
 
-function getListByMedic(req, res, next, medico) {
-  console.log(medico)
-    BillingCycle.find( 
-      { medico : { $eq: medico }}
-      , function(error, result) {
+function getListByMedic(req, res, next) {
+   BillingCycle.find( 
+      { medico : { $eq: req.params.medico }}, function(error, value) {
       if(error) {
         res.status(500).json({errors: [error]})
       } else {
@@ -29,7 +27,6 @@ function getListByMedic(req, res, next, medico) {
       }
     })
 }
-
 
 function parseErrors(nodeRestfulErrors) {
   const errors = []
@@ -47,4 +44,4 @@ BillingCycle.route('count', function(req, res, next) {
   })
 })
 
-module.exports = {BillingCycle, getListByMedic}
+module.exports = BillingCycle
