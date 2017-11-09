@@ -10,6 +10,7 @@ module.exports = function (server) {
     server.use('/oapi', openApi)
 
     const AuthService = require('../api/user/authService')
+
     openApi.post('/login', AuthService.login)
     openApi.post('/signup', AuthService.signup)
     openApi.post('/validateToken', AuthService.validateToken)
@@ -24,11 +25,15 @@ module.exports = function (server) {
 
     const billingCycleService = require('../api/billingCycle/billingCycleService')
     billingCycleService.register(protectedApi, '/billingCycles')
-    //protectedApi.route('/billingCycle/:medico').get(billingCycleService.getListByMedic)
+
     const billingSummaryService = require('../api/billingSummary/billingSummaryService')
 
-    //protectedApi.param('medico', billingSummaryService.getSummary)
     protectedApi.route('/billingSummary/:medico').get(billingSummaryService.getSummary)
+
+    const billingFilter = require('../api/billingCycle/billingCycleFilter')
+
+    protectedApi.route('/billingFilter/count/:medico').get(billingFilter.getCountByMedic)
+    protectedApi.route('/billingFilter/medico/:medico').get(billingFilter.getListByMedic)
 
 
 

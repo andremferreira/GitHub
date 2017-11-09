@@ -13,11 +13,10 @@ angular.module('primeiraApp').controller('DashboardCtrl', [
 function DashboardController($http, $scope, $location, consts, tabs, auth) {
   const vm = this
   vm.getUser = () => auth.getUser()
-  const usr = auth.getUser()._id
+  const usr = auth.getUser().medicoId
   vm.getSummary = function () {
     const url = `${consts.apiUrl}/billingSummary/${usr}`;
     $http.get(url).then(function (response) {
-      // console.log(response.data);
       const { credit = 0, debt = 0 } = response.data
       vm.credit = credit
       vm.debt = debt

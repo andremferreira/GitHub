@@ -9,18 +9,22 @@ angular.module('primeiraApp').controller('BillingCycleCtrl', [
   BillingCycleController
 ])
 
+
 function BillingCycleController($scope, $http, $location, msgs, tabs, consts, auth) {
 
   $scope.getBillingCycles = function() {
+    const vm = this
+    vm.getUser = () => auth.getUser()
+    const usr = auth.getUser().medicoId
+    // .match(/^[0-9a-fA-F]{24}$/)
     const page = parseInt($location.search().page) || 1
-    //const url = `${consts.apiUrl}/billingCycles/?medico=${auth.getUser()._id}&skip=${(page - 1) * 10}&limit=10`
-    const url = `${consts.apiUrl}/billingCycles?medico=${auth.getUser()._id}&skip=${(page - 1) * 10}&limit=10`
-    console.log(url)
+    const url = `${consts.apiUrl}/billingFilter/medico/${usr}`
+    //&skip=${(page - 1) * 10}&limit=10
     $http.get(url).then(function(resp) {
       $scope.billingCycles = resp.data
       $scope.billingCycle = {}
       initCreditsAndDebts()
-      $http.get(`${consts.apiUrl}/billingCycles/count`).then(function(resp) {
+      $http.get(`${consts.apiUrl}/billingFilter/count/${usr}`).then(function(resp) {
         $scope.pages = Math.ceil(resp.data.value / 10)
         tabs.show($scope, {tabList: true, tabCreate: true})
       })
@@ -29,7 +33,8 @@ function BillingCycleController($scope, $http, $location, msgs, tabs, consts, au
 
   $scope.createBillingCycle = function() {
     const url = `${consts.apiUrl}/billingCycles`;
-    $scope.billingCycle.medico = auth.getUser()._id
+    console.log(auth.getUser().medicoId)
+    $scope.billingCycle.medicoId = auth.getUser().medicoId
 
     $http.post(url, $scope.billingCycle).then(function(response) {
       $scope.billingCycle = {}

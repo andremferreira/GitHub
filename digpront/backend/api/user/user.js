@@ -5,7 +5,7 @@ const limite = new Date() + 10
 
 /*
     CAMPOS OBRIGATÓRIOS PARA CADASTRO INICIAL:
-    nome, sobrenome, email, crm, celular, endereco, bairro, cidade, estado, cep, password
+    nome, sobrenome, email, crm, celular, cep, password
 */
 
 const userSchema = new mongoose.Schema({
@@ -13,9 +13,9 @@ const userSchema = new mongoose.Schema({
     nome: { type: String, required: true, uppercase: true },
     sobrenome: { type: String, required: false, uppercase: true , trim: true},
     email: { type: String, required: true , lowercase: true },
-    crm: { type: String, required: false, min: 3, max: 6 },
+    crm: { type: String, required: true, min: 3, max: 6 },
     telefone: { type: String, required: false, min: 10, max: 15 },
-    celular: { type: String, required: false, min: 10, max: 15 },
+    celular: { type: String, required: true, min: 10, max: 15 },
     genero: { type: Boolean, required: false },
     // TODO: Modificar o tipo para required true o endereço, telefone, sobrenome, cidade, estado, cpf, após testar o backend
     endereco: { type: String, required: false }, 
@@ -26,13 +26,14 @@ const userSchema = new mongoose.Schema({
                             3 - Assistente
     */
     tipo: { type: Number, required: true, default: 2 },
-    cep: { type: String, required: false },
+    cep: { type: String, required: true },
     bairro: { type: String, required: false },
     cidade: { type: String, required: false }, 
     estado: { type: String, required: false },
     password: { type: String, min: 6, max: 12, required: true },
     // Assistem atrelado ao médico
-    id_medico: { type: String, required: false },
+    medicoId: { type: mongoose.Schema.Types.ObjectId, auto: true, requered:true,  index:true, unique:true },
+    // default: seq.getNextSequenceByName("medicoid")
     validade: { type: Date, default: limite, required: true },
 })
 
