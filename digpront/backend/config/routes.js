@@ -35,6 +35,10 @@ module.exports = function (server) {
     protectedApi.route('/billingFilter/count/:medico').get(billingFilter.getCountByMedic)
     protectedApi.route('/billingFilter/medico/:medico').get(billingFilter.getListByMedic)
 
+    // Cadastro de Pacientes e Consultas
+    const cadastroPacienteService = require('../api/cadastroPaciente/cadastroPacienteService')
+    cadastroPacienteService.register(protectedApi, '/pacientes')
+
 
 
 
