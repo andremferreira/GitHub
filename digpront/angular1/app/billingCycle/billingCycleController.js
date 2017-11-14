@@ -16,7 +16,6 @@ function BillingCycleController($scope, $http, $location, msgs, tabs, consts, au
     const vm = this
     vm.getUser = () => auth.getUser()
     const usr = auth.getUser().medicoId
-    // .match(/^[0-9a-fA-F]{24}$/)
     const page = parseInt($location.search().page) || 1
     const url = `${consts.apiUrl}/billingFilter/medico/${usr}`
     //&skip=${(page - 1) * 10}&limit=10

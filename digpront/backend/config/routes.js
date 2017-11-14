@@ -26,6 +26,12 @@ module.exports = function (server) {
     const billingCycleService = require('../api/billingCycle/billingCycleService')
     billingCycleService.register(protectedApi, '/billingCycles')
 
+    const userService = require('../api/user/userService')
+    userService.register(protectedApi, '/users')
+
+    const userFilter = require('../api/user/userFilter')
+    protectedApi.route('/user/:id').get(userFilter.getUserById)
+
     const billingSummaryService = require('../api/billingSummary/billingSummaryService')
 
     protectedApi.route('/billingSummary/:medico').get(billingSummaryService.getSummary)
@@ -38,6 +44,10 @@ module.exports = function (server) {
     // Cadastro de Pacientes e Consultas
     const cadastroPacienteService = require('../api/cadastroPaciente/cadastroPacienteService')
     cadastroPacienteService.register(protectedApi, '/pacientes')
+
+    // Fila de atendimento
+    const filaService = require('../api/fila/filaService')
+    filaService.register(protectedApi, '/fila')
 
 
 

@@ -3,7 +3,7 @@ const BillingCycleFilter = require('./billingCycle')
 const ObjectId = require('mongoose').Types.ObjectId
 
 function getCountByMedic(req, res, next) {
-    var ObjectId = require('mongoose').Types.ObjectId
+    // var ObjectId = require('mongoose').Types.ObjectId
     // console.log(req.params.medico)
     BillingCycleFilter.count({ medicoId: new ObjectId(req.params.medico) }, function(error, value) {
       if(error) {
